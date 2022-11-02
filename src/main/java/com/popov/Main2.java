@@ -13,6 +13,9 @@ public class Main2 {
 //        sort();
 //        search();
         bubbleSwap();
+
+
+
     }
 
     private static void bubbleSwap() {
