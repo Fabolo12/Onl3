@@ -12,10 +12,30 @@ public class Main2 {
 //        copy4();
 //        sort();
 //        search();
-        bubbleSwap();
+//        bubbleSwap();
+        bubbleSort();
+    }
 
+    private static void bubbleSort() {
+        final Random random = new Random();
+        final int[] numbers = new int[10];
+        for (int i = 0; i < numbers.length; i++) {
+           numbers[i] = random.nextInt(100);
+        }
+        System.out.println(Arrays.toString(numbers));
 
-
+        for (int i = 0; i < numbers.length - 1; i++) {
+            int firstNumber = numbers[i];
+            int secondNumber = numbers[i + 1];
+            if (firstNumber > secondNumber) {
+                int temp = firstNumber;
+                firstNumber = secondNumber;
+                secondNumber = temp;
+            }
+            numbers[i] = firstNumber;
+            numbers[i + 1] = secondNumber;
+        }
+        System.out.println(Arrays.toString(numbers));
     }
 
     private static void bubbleSwap() {
