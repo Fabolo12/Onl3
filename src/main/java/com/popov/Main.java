@@ -1,12 +1,28 @@
 package com.popov;
 
-import com.popov.model.Person;
+import com.popov.model.Car;
+import com.popov.repository.CarArrayRepository;
+import com.popov.service.CarService;
 
 public class Main {
     public static void main(final String[] args) {
-        final Person person = new Person(0.6);
-        person.setName("John");
-        person.setAge(25);
-        System.out.println(person.getName() + " " + person.getAge());
+        final CarService carService = new CarService(new CarArrayRepository());
+
+        final Car car1 = carService.create();
+        carService.printAll();
+
+        System.out.println(carService.find(car1.getId()));
+
+        carService.create(3);
+        carService.printAll();
+
+        carService.delete(car1.getId());
+        carService.printAll();
+
+        final Car[] all = carService.getAll();
+        final Car car = all[0];
+        carService.changeRandomColor(car.getId());
+        System.out.println(carService.find(car.getId()));
+
     }
 }
