@@ -2,6 +2,7 @@ package com.popov.service;
 
 import com.popov.model.Car;
 import com.popov.model.Color;
+import com.popov.model.Engine;
 import com.popov.repository.CarArrayRepository;
 
 import java.util.Arrays;
@@ -17,7 +18,9 @@ public class CarService {
     }
 
     public Car create() {
-        final Car car = new Car(getRandomColor());
+        final Car car = new Car();
+        final Engine engine = new Engine();
+        car.setEngine(engine);
         carArrayRepository.save(car);
         return car;
     }
@@ -28,10 +31,8 @@ public class CarService {
         }
     }
 
-    private Color getRandomColor() {
-        final Color[] values = Color.values();
-        final int randomIndex = random.nextInt(values.length);
-        return values[randomIndex];
+    public void print(final Car car) {
+        System.out.println(car);
     }
 
     public void printAll() {
@@ -70,10 +71,20 @@ public class CarService {
 
     private void findAndChangeRandomColor(final Car car) {
         final Color color = car.getColor();
-        Color randomColor;
-        do {
-            randomColor = getRandomColor();
-        } while (randomColor == color);
+        final Color randomColor = Color.getRandomColor(color);
         carArrayRepository.updateColor(car.getId(), randomColor);
+    }
+
+    public static void check(final Car car) {
+        if (car.getCount() <= 0 || car.getEngine().getPower() <= 200) {
+            if (car.getCount() <= 0) {
+                System.out.println("Incorrect count: " + car.getId());
+            }
+            if (car.getEngine().getPower() <= 200) {
+                System.out.println("Incorrect engine's power: " + car.getId());
+            }
+        } else {
+            System.out.println("All fine");
+        }
     }
 }
