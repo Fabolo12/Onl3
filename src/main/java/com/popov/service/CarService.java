@@ -87,4 +87,12 @@ public class CarService {
             System.out.println("All fine");
         }
     }
+
+    public int div(final int count) {
+        if (count == 0) {
+            return 10;
+        } else {
+            return 10 / count;
+        }
+    }
 }
