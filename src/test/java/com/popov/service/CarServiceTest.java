@@ -116,4 +116,38 @@ class CarServiceTest {
         // checks
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void deleteIdNull() {
+        // initialize
+
+        // action
+        target.delete(null);
+
+        // checks
+        Mockito.verify(repository, Mockito.never()).delete(Mockito.anyString());
+    }
+
+    @Test
+    void deleteIdEmpty() {
+        // initialize
+
+        // action
+        target.delete("");
+
+        // checks
+        Mockito.verify(repository, Mockito.never()).delete(Mockito.anyString());
+    }
+
+    @Test
+    void delete() {
+        // initialize
+        final String id = "123";
+
+        // action
+        target.delete(id);
+
+        // checks
+        Mockito.verify(repository).delete(id);
+    }
 }

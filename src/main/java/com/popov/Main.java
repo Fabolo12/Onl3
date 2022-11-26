@@ -1,34 +1,51 @@
 package com.popov;
 
 import com.popov.model.Car;
-import com.popov.repository.CarArrayRepository;
-import com.popov.service.CarService;
+import com.popov.model.ElectricEngine;
+import com.popov.model.Engine;
+import com.popov.model.OilEngine;
+import com.popov.model.Passangers;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.concurrent.locks.Lock;
 
 public class Main {
-    public static void main(final String[] args) {
-        final CarService carService = new CarService(new CarArrayRepository());
-        for (int i = 0; i < 3; i++) {
-            final Car car = carService.create();
-            carService.print(car);
-            CarService.check(car);
-        }
+    public static void main(final String[] args) throws CloneNotSupportedException {
+        /*final CarService carService =
+                new CarService(new CarArrayRepository());
 
+        final Car electricCar = carService.createElectricCar();
+        System.out.println(electricCar);*/
+        final OilEngine oilEngine = new OilEngine(12, "VT-10");
+        final ElectricEngine electricEngine = new ElectricEngine(
+                12, "VT-10", 220);
+        oilEngine.display();
+        electricEngine.display();
 
-        /*final Car car1 = carService.create();
-        carService.printAll();
+        System.out.println(oilEngine.calculatePower());
+        System.out.println(electricEngine.calculatePower());
 
-        System.out.println(carService.find(car1.getId()));
+        oilEngine.printType();
+        electricEngine.printType();
 
-        carService.create(3);
-        carService.printAll();
+        final Passangers passangers = new Passangers() {
+            @Override
+            public int getPassengersCount() {
+                return 100;
+            }
+        };
 
-        carService.delete(car1.getId());
-        carService.printAll();
+        System.out.println(passangers.getPassengersCount());
 
-        final Car[] all = carService.getAll();
-        final Car car = all[0];
-        carService.changeRandomColor(car.getId());
-        System.out.println(carService.find(car.getId()));*/
+        final PassangersIml passangersIml = new PassangersIml();
+        System.out.println(passangersIml.getPassengersCount());
+    }
+}
 
+class PassangersIml implements Passangers {
+    @Override
+    public int getPassengersCount() {
+        return 100;
     }
 }

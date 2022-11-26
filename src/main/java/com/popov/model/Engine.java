@@ -1,30 +1,15 @@
 package com.popov.model;
 
-public class Engine {
-    private int power;
-    private String type;
+public abstract class Engine {
+    protected String type;
 
-    public Engine() {
-    }
-
-    public Engine(int power, String type) {
-        this.power = power;
+    protected Engine(String type) {
         this.type = type;
     }
 
-    public int getPower() {
-        return power;
+    public void printType() {
+        System.out.println("***" + type + "***");
     }
 
-    public void setPower(int power) {
-        this.power = power;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    public abstract double calculatePower();
 }
