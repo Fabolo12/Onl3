@@ -1,5 +1,8 @@
 package com.popov.model;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Engine {
     protected String type;
 

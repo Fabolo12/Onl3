@@ -3,6 +3,7 @@ package com.popov.service;
 import com.popov.model.Car;
 import com.popov.model.Color;
 import com.popov.model.ElectricEngine;
+import com.popov.model.Engine;
 import com.popov.model.OilEngine;
 import com.popov.repository.CarArrayRepository;
 
@@ -20,24 +21,29 @@ public class CarService {
 
     public Car create() {
         final Car car = new Car();
-        final OilEngine oilEngine = new OilEngine();
-        car.setOilEngine(oilEngine);
+        final Engine engine = new OilEngine(
+                100, "OIL");
+        car.setEngine(engine);
         carArrayRepository.save(car);
         return car;
     }
 
     public Car createElectricCar() {
         final Car car = new Car();
-        final ElectricEngine electricEngine = new ElectricEngine(
-                10, "VT-10", 220);
-        car.setElectricEngine(electricEngine);
+        final Engine engine = new ElectricEngine(
+                10, "Electric", 220);
+        car.setEngine(engine);
         carArrayRepository.save(car);
         return car;
     }
 
     public void create(final int count) {
         for (int i = 0; i < count; i++) {
-            create();
+            if (random.nextBoolean()) {
+                create();
+            } else {
+                createElectricCar();
+            }
         }
     }
 
@@ -86,15 +92,19 @@ public class CarService {
     }
 
     public static void check(final Car car) {
-        if (car.getCount() <= 0 || car.getOilEngine().getPower() <= 200) {
-            if (car.getCount() <= 0) {
-                System.out.println("Incorrect count: " + car.getId());
+        if (car.getEngine() instanceof ElectricEngine) {
+            System.out.println("Electric engine can't check :(");
+        } else if (car.getEngine() instanceof OilEngine engine) {
+            if (car.getCount() <= 0 || engine.getPower() <= 200) {
+                if (car.getCount() <= 0) {
+                    System.out.println("Incorrect count: " + car.getId());
+                }
+                if (engine.getPower() <= 200) {
+                    System.out.println("Incorrect engine's power: " + car.getId());
+                }
+            } else {
+                System.out.println("All fine");
             }
-            if (car.getOilEngine().getPower() <= 200) {
-                System.out.println("Incorrect engine's power: " + car.getId());
-            }
-        } else {
-            System.out.println("All fine");
         }
     }
 

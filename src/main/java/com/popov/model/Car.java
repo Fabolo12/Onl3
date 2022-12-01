@@ -14,9 +14,7 @@ public class Car implements Passangers {
     private final String id;
     private final Random random = new Random();
     private String manufacturer;
-    private OilEngine oilEngine;
-
-    private ElectricEngine electricEngine;
+    private Engine engine;
     private Color color;
     private int count;
     private int price;
@@ -25,10 +23,10 @@ public class Car implements Passangers {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Car(String manufacturer, OilEngine oilEngine, Color color) {
+    public Car(String manufacturer, Engine engine, Color color) {
         this.id = UUID.randomUUID().toString();
         this.manufacturer = manufacturer;
-        this.oilEngine = oilEngine;
+        this.engine = engine;
         this.color = color;
         this.count = 1;
         this.price = random.nextInt(1_000_000);

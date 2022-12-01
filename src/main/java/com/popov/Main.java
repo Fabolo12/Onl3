@@ -5,6 +5,8 @@ import com.popov.model.ElectricEngine;
 import com.popov.model.Engine;
 import com.popov.model.OilEngine;
 import com.popov.model.Passangers;
+import com.popov.repository.CarArrayRepository;
+import com.popov.service.CarService;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -12,11 +14,12 @@ import java.util.concurrent.locks.Lock;
 
 public class Main {
     public static void main(final String[] args) throws CloneNotSupportedException {
-        /*final CarService carService =
+        final CarService carService =
                 new CarService(new CarArrayRepository());
+/*
 
         final Car electricCar = carService.createElectricCar();
-        System.out.println(electricCar);*/
+        System.out.println(electricCar);
         final OilEngine oilEngine = new OilEngine(12, "VT-10");
         final ElectricEngine electricEngine = new ElectricEngine(
                 12, "VT-10", 220);
@@ -40,6 +43,14 @@ public class Main {
 
         final PassangersIml passangersIml = new PassangersIml();
         System.out.println(passangersIml.getPassengersCount());
+*/
+
+        carService.create(10);
+        final Car[] all = carService.getAll();
+        for (Car car : all) {
+            System.out.println(car.getEngine().getType());
+            CarService.check(car);
+        }
     }
 }
 
