@@ -8,6 +8,7 @@ import com.popov.model.OilEngine;
 import com.popov.repository.CarArrayRepository;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 
 public class CarService {
@@ -114,5 +115,27 @@ public class CarService {
         } else {
             return 10 / count;
         }
+    }
+
+    public Optional<Engine> createEngine(final String type) {
+        if (type.equals("oil")) {
+            final OilEngine oilEngine = new OilEngine();
+            oilEngine.setPower(100);
+            // TODO set fields
+            return Optional.of(oilEngine);
+        } else if (type.equals("electro")) {
+            final ElectricEngine electricEngine = new ElectricEngine();
+            electricEngine.setEnergy(100);
+            // TODO set fields
+            return Optional.of(electricEngine);
+        }
+        return Optional.empty();
+    }
+
+    public Engine createDefaultEngine() {
+        final ElectricEngine electricEngine = new ElectricEngine();
+        electricEngine.setEnergy(100);
+        // TODO set fields
+        return electricEngine;
     }
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public abstract class Engine {
-    protected String type;
+    private final String type;
 
     protected Engine(String type) {
         this.type = type;

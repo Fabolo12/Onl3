@@ -1,10 +1,15 @@
 package com.popov.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ElectricEngine extends OilEngine {
-    private final int energy;
+    private int energy;
+
+    public ElectricEngine() {
+    }
 
     public ElectricEngine(int power, String type,
                           int energy) {
@@ -14,7 +19,7 @@ public class ElectricEngine extends OilEngine {
 
     @Override
     public void display() {
-        System.out.println(power + " " + type  + " " + energy);
+        System.out.println(power + " " + getType()  + " " + energy);
     }
 
     @Override
@@ -27,7 +32,7 @@ public class ElectricEngine extends OilEngine {
         return "ElectricEngine{" +
                 "energy=" + energy +
                 ", power=" + power +
-                ", type='" + type + '\'' +
+                ", type='" + getType() + '\'' +
                 '}';
     }
 }

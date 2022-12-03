@@ -44,11 +44,10 @@ public class CarArrayRepository { // can be named DAO in same case
             }
         }
         if (index != cars.length) {
-            System.arraycopy(cars, index + 1, cars, index,
-                    cars.length - (index + 1));
+            System.arraycopy(cars, index + 1, cars, index, cars.length - (index + 1));
         }
     }
-    
+
     public void insert(int index, final Car car) {
         // TODO: 09/11/22
         // Example: insert(7, Car car);

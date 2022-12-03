@@ -18,11 +18,19 @@ public class OilEngine extends Engine {
     }
 
     public void display() {
-        System.out.println(power + " " + type);
+        System.out.println(power + " " + getType());
     }
 
     @Override
     public double calculatePower() {
         return power * 5;
+    }
+
+    @Override
+    public String toString() {
+        return "OilEngine{" +
+                "power=" + power +
+                ", type='" + getType() +
+                '}';
     }
 }
