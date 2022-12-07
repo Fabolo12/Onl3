@@ -16,8 +16,24 @@ public class CarService {
 
     private final Random random = new Random();
 
-    public CarService(final CarArrayRepository carArrayRepository) {
+    private static CarService instance;
+
+    private CarService(final CarArrayRepository carArrayRepository) {
         this.carArrayRepository = carArrayRepository;
+    }
+
+    public static CarService getInstance() {
+        if (instance == null) {
+            instance = new CarService(CarArrayRepository.getInstance());
+        }
+        return instance;
+    }
+
+    public static CarService getInstance(final CarArrayRepository repository) {
+        if (instance == null) {
+            instance = new CarService(repository);
+        }
+        return instance;
     }
 
     public Car create() {
@@ -137,5 +153,9 @@ public class CarService {
         electricEngine.setEnergy(100);
         // TODO set fields
         return electricEngine;
+    }
+
+    public int compareCar(final Car first, final Car second) {
+        return first.getId().compareTo(second.getId());
     }
 }

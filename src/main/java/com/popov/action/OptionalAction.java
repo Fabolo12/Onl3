@@ -1,20 +1,15 @@
-package com.popov;
+package com.popov.action;
 
 import com.popov.model.ElectricEngine;
 import com.popov.model.Engine;
-import com.popov.repository.CarArrayRepository;
-import com.popov.service.CarService;
 
 import java.util.Optional;
 
-public class MainOptional {
-    private static final CarService carService = new CarService(new CarArrayRepository());
-
-    public static void main(String[] args) {
-
-
-        final Optional<Engine> engineEmptyOptional = carService.createEngine("werweftg");
-        final Optional<Engine> enginePresentOptional = carService.createEngine("oil");
+public class OptionalAction implements Action {
+    @Override
+    public void execute() {
+        final Optional<Engine> engineEmptyOptional = CAR_SERVICE.createEngine("werweftg");
+        final Optional<Engine> enginePresentOptional = CAR_SERVICE.createEngine("oil");
 //        myGetAndIsPresent(engineEmptyOptional);
 //        myGetAndIsPresent(enginePresentOptional);
 
@@ -52,7 +47,7 @@ public class MainOptional {
         inputCanBeNull("test");
     }
 
-    private static void myGetAndIsPresent(final Optional<Engine> engineOptional) {
+    private void myGetAndIsPresent(final Optional<Engine> engineOptional) {
         if (engineOptional.isPresent()) {
             final Engine engine = engineOptional.get();
             System.out.println("Engine " + engine);
@@ -61,30 +56,30 @@ public class MainOptional {
         }
     }
 
-    private static void myIfPresent(final Optional<Engine> engineOptional) {
+    private void myIfPresent(final Optional<Engine> engineOptional) {
         engineOptional.ifPresent(engine -> {
             System.out.println("Engine " + engine);
         });
     }
 
-    private static void myOrElse(final Optional<Engine> engineOptional) {
+    private void myOrElse(final Optional<Engine> engineOptional) {
         final Engine engine = engineOptional.orElse(new ElectricEngine());
         System.out.println("Engine " + engine);
     }
 
-    private static void myOrElseThrow(final Optional<Engine> engineOptional) {
+    private void myOrElseThrow(final Optional<Engine> engineOptional) {
         final Engine engine = engineOptional.orElseThrow(IllegalAccessError::new);
         System.out.println("Engine " + engine);
     }
 
-    private static void myOrElseGet(final Optional<Engine> engineOptional) {
+    private void myOrElseGet(final Optional<Engine> engineOptional) {
         final Engine engine = engineOptional.orElseGet(() -> {
-            return carService.createDefaultEngine();
+            return CAR_SERVICE.createDefaultEngine();
         });
         System.out.println("Engine " + engine);
     }
 
-    private static void myMap(final Optional<Engine> engineOptional) {
+    private void myMap(final Optional<Engine> engineOptional) {
         engineOptional
                 .map(e -> {
                     System.out.println("Change type from Engine to String");
@@ -96,7 +91,7 @@ public class MainOptional {
 
     }
 
-    private static void myFilter(final Optional<Engine> engineOptional) {
+    private void myFilter(final Optional<Engine> engineOptional) {
         engineOptional
                 .filter(e -> {
                     final boolean b = e.calculatePower() != 0;
@@ -109,25 +104,25 @@ public class MainOptional {
 
     }
 
-    private static void myIfPresentOrElse(final Optional<Engine> engineOptional) {
+    private void myIfPresentOrElse(final Optional<Engine> engineOptional) {
         engineOptional.ifPresentOrElse(
                 engine -> {
                     System.out.println("Engine " + engine);
                 },
                 () -> {
-                    final Engine defaultEngine = carService.createDefaultEngine();
+                    final Engine defaultEngine = CAR_SERVICE.createDefaultEngine();
                     System.out.println("Default engine " + defaultEngine);
                 }
         );
     }
 
-    private static void myOr(final Optional<Engine> engineOptional) {
+    private void myOr(final Optional<Engine> engineOptional) {
         final Optional<Engine> engineOptionalNew = engineOptional
-                .or(() -> carService.createEngine("oil"));
+                .or(() -> CAR_SERVICE.createEngine("oil"));
         myIfPresent(engineOptionalNew);
     }
 
-    private static void inputCanBeNull(final String one) {
+    private void inputCanBeNull(final String one) {
         if (one != null) {
             final String s = one.toUpperCase();
             System.out.println(s);

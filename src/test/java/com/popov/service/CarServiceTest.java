@@ -16,7 +16,7 @@ class CarServiceTest {
     @BeforeEach
     void setUp() {
         repository = Mockito.mock(CarArrayRepository.class);
-        target = new CarService(repository);
+        target = CarService.getInstance(repository);
     }
 
     @Test

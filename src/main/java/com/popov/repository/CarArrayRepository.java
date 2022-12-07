@@ -11,6 +11,18 @@ import com.popov.model.Color;
 public class CarArrayRepository { // can be named DAO in same case
     private static Car[] cars = new Car[10];
 
+    private static CarArrayRepository instance;
+
+    private CarArrayRepository() {
+    }
+
+    public static CarArrayRepository getInstance() {
+        if (instance == null) {
+            instance = new CarArrayRepository();
+        }
+        return instance;
+    }
+
     public void save(final Car car) {
         final int index = putCar(car);
         if (index == cars.length) {
