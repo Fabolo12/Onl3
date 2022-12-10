@@ -43,14 +43,6 @@ public class Main2 {
 
         System.out.println("~".repeat(10));
 
-        for (int i = 0; i < 10; i++) {
-            createRandomClass().print();
-        }
-
-        System.out.println(parents.hashCode());
-        System.out.println(parents.hashCode());
-
-
     }
 
     private static Parent createRandomClass() {
