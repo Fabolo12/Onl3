@@ -8,6 +8,7 @@ public enum Actions {
     COMPARE("Compare cars", new CompareAction()),
     SHOW_ALL("Show all cars", new ShowAllAction()),
     OPTIONAL("Examples of Optional", new OptionalAction()),
+    GENERIC("Examples of Generic", new GenericAction()),
     EXIT("Finish program", new ExitAction());
 
     private final String name;

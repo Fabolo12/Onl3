@@ -4,8 +4,11 @@ import com.popov.model.ElectricEngine;
 import com.popov.model.Engine;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class OptionalAction implements Action {
+    private static final Random RANDOM = new Random();
+
     @Override
     public void execute() {
         final Optional<Engine> engineEmptyOptional = CAR_SERVICE.createEngine("werweftg");
@@ -45,6 +48,22 @@ public class OptionalAction implements Action {
 
         inputCanBeNull(null);
         inputCanBeNull("test");
+    }
+
+    private Optional<Engine> randomOptional() {
+        final int count = RANDOM.nextInt(10);
+        if (count <= 3) {
+            return Optional.empty();
+        } else if (count <= 7) {
+//            Optional.of(null); NullPointerException
+            return Optional.of(new ElectricEngine());
+        } else {
+            final Engine engine = null;
+            final Optional<Engine> example = engine == null
+                    ? Optional.empty() : Optional.of(engine);
+
+            return Optional.ofNullable(engine);
+        }
     }
 
     private void myGetAndIsPresent(final Optional<Engine> engineOptional) {
