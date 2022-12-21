@@ -1,5 +1,6 @@
 package com.popov.action;
 
+import com.popov.model.Car;
 import com.popov.model.ElectricEngine;
 import com.popov.model.Engine;
 
@@ -154,5 +155,18 @@ public class OptionalAction implements Action {
                 .ifPresent(s -> {
                     System.out.println(s);
                 });
+    }
+
+    private void checkCount(final Car car) {
+        Optional.ofNullable(car)
+                .filter(c -> c.getCount() > 10)
+                .ifPresentOrElse(
+                        c -> {
+                            System.out.printf("Manafacturer: %s, count: %d%n", c.getManufacturer(), c.getCount());
+                        },
+                        () -> {
+                            throw new IllegalArgumentException();
+                        }
+                );
     }
 }

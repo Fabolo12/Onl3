@@ -99,19 +99,19 @@ public class CollectionAction implements Action {
     }
 
     private static void wildcardExample() {
-        final List<Integer> integers = new ArrayList<>();
-        final List<Long> longs = new LinkedList<>();
-        final List<String> strings = new ArrayList<>();
+        final ArrayList<Integer> integers = new ArrayList<>();
+        final LinkedList<Long> longs = new LinkedList<>();
+        final ArrayList<String> strings = new ArrayList<>();
         listSum1(integers);
-        listSum1(longs);
+//        listSum1(longs);
 //        listSum1(strings); compilation error
 
         listSum2(integers);
-        listSum2(longs);
+//        listSum2(longs);
 //        listSum2(strings); compilation error
     }
 
-    private static void listSum1(final List<? extends Number> list) {
+    private static void listSum1(final ArrayList<? extends Number> list) {
         int sum = 0;
         for (Number number : list) {
             sum += number.intValue();
@@ -119,7 +119,7 @@ public class CollectionAction implements Action {
         System.out.println("Sum: " + sum);
     }
 
-    private static <T extends Number> void listSum2(final List<T> list) {
+    private static <T extends Number> void listSum2(final ArrayList<T> list) {
         int sum = 0;
         for (Number number : list) {
             sum += number.intValue();
