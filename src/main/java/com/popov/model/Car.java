@@ -19,6 +19,8 @@ public class Car implements Passangers {
     private int count;
     private int price;
 
+    private Type type;
+
     public Car() {
         this.id = UUID.randomUUID().toString();
     }
