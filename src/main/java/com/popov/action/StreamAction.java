@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -188,7 +189,7 @@ public class StreamAction {
         System.out.println("predicate " + predicate.test(lineForTest));
     }
 
-    private static String simpleWay(final String string) {
+    public static String simpleWay(final String string) {
         final String trim = string.trim();
         final String lowerCase = trim.toLowerCase();
         final StringBuilder stringBuilder = new StringBuilder(lowerCase);
@@ -197,7 +198,20 @@ public class StreamAction {
         return result;
     }
 
-    private static String lambdaWay(final String string) {
+    public Function<String, String> map = word -> "***" + word.toUpperCase() + "***";
+
+    public String listExample(final List<Integer> list) {
+        return list.stream()
+                .filter(Objects::nonNull)
+                .filter(integer -> integer >= 10)
+                .distinct()
+                .sorted(Integer::compare)
+                .limit(5)
+                .map(integer -> "***" + integer + "***")
+                .collect(Collectors.joining(","));
+    }
+
+    public String lambdaWay(final String string) {
         Function<String, String> function = String::trim;
         final String result = function.andThen(String::toLowerCase)
                 .andThen(StringBuilder::new)

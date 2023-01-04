@@ -6,30 +6,32 @@ import com.popov.model.ElectricEngine;
 import com.popov.model.Engine;
 import com.popov.model.OilEngine;
 import com.popov.repository.CarArrayRepository;
+import com.popov.repository.CarListRepository;
+import com.popov.repository.Crud;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 
 public class CarService {
-    private final CarArrayRepository carArrayRepository;
+    private final Crud<Car> carArrayRepository;
 
     private final Random random = new Random();
 
     private static CarService instance;
 
-    private CarService(final CarArrayRepository carArrayRepository) {
-        this.carArrayRepository = carArrayRepository;
+    private CarService(final Crud<Car> repository) {
+        this.carArrayRepository = repository;
     }
 
     public static CarService getInstance() {
         if (instance == null) {
-            instance = new CarService(CarArrayRepository.getInstance());
+            instance = new CarService(CarListRepository.getInstance());
         }
         return instance;
     }
 
-    public static CarService getInstance(final CarArrayRepository repository) {
+    public static CarService getInstance(final Crud<Car> repository) {
         if (instance == null) {
             instance = new CarService(repository);
         }
@@ -77,9 +79,9 @@ public class CarService {
         return carArrayRepository.getAll();
     }
 
-    public Car find(final String id) {
+    public Optional<Car> find(final String id) {
         if (id == null || id.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
         return carArrayRepository.getById(id);
     }
@@ -95,17 +97,13 @@ public class CarService {
         if (id == null || id.isEmpty()) {
             return;
         }
-        final Car car = find(id);
-        if (car == null) {
-            return;
-        }
-        findAndChangeRandomColor(car);
+        find(id).ifPresent(this::findAndChangeRandomColor);
     }
 
     private void findAndChangeRandomColor(final Car car) {
         final Color color = car.getColor();
         final Color randomColor = Color.getRandomColor(color);
-        carArrayRepository.updateColor(car.getId(), randomColor);
+//        carArrayRepository.updateColor(car.getId(), randomColor);
     }
 
     public static void check(final Car car) {
